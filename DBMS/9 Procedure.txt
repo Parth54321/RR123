@@ -1,0 +1,45 @@
+SQL*Plus: Release 21.0.0.0.0 - Production on Tue Apr 2 09:32:27 2024
+Version 21.3.0.0.0
+Copyright (c) 1982, 2021, Oracle. All rights reserved. Enter user-name: system Enter password:
+Last Successful login time: Tue Apr 02 2024 09:29:52 +05:30 Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+SQL> create table Customer (C_id int,C_name varchar (10),C_Address varchar(10)); Table created.
+SQL> insert into customer values(123,'parth','satara'); 1 row created.
+SQL> insert into customer values(212,'akshad','pune'); 1 row created.
+SQL> insert into customer values(302,'omkar','saswad'); 1 row created.
+SQL> insert into customer values(401,'pratik','rahuri'); 1 row created.
+SQL> describe Customer;
+ Name Null? Type
+ ----------------------------------------- -------- ----------------------------
+ C_ID NUMBER(38)
+ C_NAME VARCHAR2(10)
+ C_ADDRESS VARCHAR2(10)
+SQL> select *from customer;
+ C_ID C_NAME C_ADDRESS
+---------- ---------- ----------
+ 123 parth satara
+ 212 akshad pune
+ 302 omkar saswad
+ 401 pratik rahuri
+SQL> set serveroutput on;
+SQL> Declare
+2	C_id Customer.C_id%type;
+3	C_name Customer.C_name%type;
+4	C_Address Customer.C_address%type;
+5	cursor C_Customer is
+6	select C_id,C_name,C_Address from customer;
+7	begin
+8	open C_Customer;
+9	loop
+10	fetch C_Customer into C_id,C_name,C_Address;
+11	exit when C_Customer%notfound;
+12	dbms_output.put_line(C_id || C_name || C_address );
+13	end loop; close C_Customer;
+14	end;
+15	/
+123parthsatara
+212akshadpune
+302omkarsaswad
+401pratikrahuri
+PL/SQL procedure successfully completed. SQL>

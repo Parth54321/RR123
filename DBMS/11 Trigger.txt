@@ -1,0 +1,170 @@
+SQL*Plus: Release 21.0.0.0.0 - Production on Fri Apr 5 12:04:41 2024
+Version 21.3.0.0.0
+Copyright (c) 1982, 2021, Oracle. All rights reserved. Enter user-name: system Enter password:
+Last Successful login time: Fri Apr 05 2024 12:02:20 +05:30 Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+SQL> Create table item_price_history(item_id int,item_name  2 varchar(100),suppiler_name varchar(100),unit_price int); 
+Table created.
+SQL> insert into item_price_history values(101,'ABC',’PARTH ',100); 
+1 row created.
+SQL> insert into item_price_history values(102,'DEF','Omkar',300); 
+1 row created.
+SQL> insert into item_price_history values(103,'GHI','AKSHAD',500); 
+1 row created.
+SQL> select * from item_price_history;
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 101
+ABC
+PARTH
+ 100
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 102
+DEF
+Omkar
+ 300
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 103
+GHI
+AKSHAD
+ 500
+SQL> create table item(item_id int,item_name varchar(100),suppiler_name  2 varchar(100),unit_price int); 
+Table created.
+SQL> insert into item values(501,'ABC','ALOK',200); 
+1 row created.
+SQL> insert into item values(502,'DEF','AKSHAD',400); 
+1 row created.
+SQL> insert into item values(503,'MNL','Omkar',100); 
+1 row created.
+SQL> select * from item;
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 501 ABC
+PARTH
+ 200
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 502
+DEF
+AKSHAD
+ 400
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 503
+MNL
+Omkar
+ 100
+SQL> create or replace trigger price_history_trigger
+2	before update of unit_price
+3	on item
+4	for each row
+5	begin
+6	insert into item_price_history
+7	values
+8	(:old.item_id,:old.item_name,
+9	:old.suppiler_name,:old.unit_price);
+10	end;
+11	/
+Trigger created.
+SQL> update item set unit_price = 800 where item_id = 501; 1 row updated.
+SQL> select * from item;
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 501 ABC
+PARTH
+ 800
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 502
+DEF
+AKSHAD
+ 400
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 503
+MNL
+Omkar
+ 100
+SQL> create or replace trigger price_history_trigger
+2	after update of unit_price
+3	on item
+4	for each row
+5	begin
+6	insert into item_price_history
+7	values
+8	(:old.item_id,:old.item_name,
+9	:old.suppiler_name,:old.unit_price);
+10	end;
+11	/
+Trigger created.
+SQL> select * from item where item_id = 502;
+ ITEM_ID
+----------
+ITEM_NAME
+--------------------------------------------------------------------------------
+SUPPILER_NAME
+--------------------------------------------------------------------------------
+UNIT_PRICE
+----------
+ 502
+DEF
+AKSHAD
+ 400
+SQL

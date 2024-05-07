@@ -1,0 +1,55 @@
+SQL*Plus: Release 21.0.0.0.0 - Production on Tue Apr 2 10:43:42 2024
+Version 21.3.0.0.0
+Copyright (c) 1982, 2021, Oracle. All rights reserved. Enter user-name: system Enter password:
+Last Successful login time: Tue Apr 02 2024 10:43:21 +05:30 Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+SQL> create table t4(name varchar(10),marks int,roll int,class varchar(10)); Table created.
+SQL> insert into t4 values('PARTH',45,56,'SE'); 1 row created.
+SQL> insert into t4 values('PRATIK',50,60,'SE'); 1 row created.
+SQL> insert into t4 values('AKSHAD',95,22,'SE'); 1 row created.
+SQL> desc table t4;
+Usage: DESCRIBE [schema.]object[@db_link]
+SQL> select* from t4;
+NAME MARKS ROLL CLASS
+---------- ---------- ---------- ----------
+PARTH 45 56 SE
+PRATIK 50 60 SE
+AKSHAD 95 22 SE
+SQL> set serveroutput on;
+SQL> CREATE OR REPLACE PROCEDURE proc_Grade(
+2	in_name IN VARCHAR2,
+3	in_marks IN NUMBER,
+4	out_roll OUT NUMBER,
+5	out_class OUT VARCHAR2
+6	)
+7	IS
+8	BEGIN
+9	IF in_marks >= 90 AND in_marks <= 100 THEN
+10	IF in_marks >= 90 THEN
+11	out_class := 'Distinction';
+12	ELSIF in_marks >= 80 AND in_marks <= 89 THEN
+13	out_class := 'First Class';
+14	ELSIF in_marks >= 70 AND in_marks <= 79 THEN
+15	out_class := 'Higher Second Class';
+16	ELSE
+17	out_class := 'Not Classified';
+18	END IF;
+19	ELSE
+20	out_class := 'Fail';
+21	END IF;
+ 22
+23	SELECT Roll INTO out_roll FROM t4 WHERE Name = in_name;
+24	END;
+25	/
+Procedure created.
+SQL> set serveroutput on;
+SQL> CREATE OR REPLACE PROCEDURE p
+2	as begin
+3	dbms_output.put_line('Hello Welcome to SE AIML');
+4	END;
+5	/
+Procedure created.
+SQL> exec p;
+Hello Welcome to SE AIML
+PL/SQL procedure successfully completed. SQL>

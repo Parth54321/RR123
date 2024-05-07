@@ -1,0 +1,110 @@
+mysql> use INFO;
+Database changed
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dsy                |
+| entc               |
+| info               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| stud               |
+| student            |
+| sys                |
+| world              |
++--------------------+
+11 rows in set (0.00 sec)
+mysql> create table stud(sr_no int, roll_no int,name varchar(20),address varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+mysql> show tables;
++----------------+
+| Tables_in_info |
++----------------+
+| stud           |
++----------------+
+1 row in set (0.00 sec)
+mysql> insert into stud values(1,1,'nikita','satara');
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into stud values(2,7,'parth','pune');
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into stud values(3,9,'ram','kolhapur');
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into stud values(3,9,'raj','mumbai');
+Query OK, 1 row affected (0.01 sec)
+mysql> show tables;
++----------------+
+| Tables_in_info |
++----------------+
+| stud           |
++----------------+
+1 row in set (0.00 sec)
+mysql> describe stud;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sr_no   | int         | YES  |     | NULL    |       |
+| roll_no | int         | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+mysql> describe stud;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sr_no   | int         | YES  |     | NULL    |       |
+| roll_no | int         | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+mysql> select * from stud;
++-------+---------+--------+------------+
+| sr_no | roll_no | name   | address    |
++-------+---------+--------+------------+
+|     1 |       1 | nikita | satara	|
+|     2 |       7 | parth  | pune       |
+|     3 |       9 | ram    | kolhapur   |
+|     3 |       9 | raj    | mumbai     |
++-------+---------+--------+------------+
+4 rows in set (0.00 sec)
+mysql> select * from stud;
++-------+---------+--------+------------+
+| sr_no | roll_no | name   | address    |
++-------+---------+--------+------------+
+|     1 |       1 | nikita | satara     |
+|     2 |       7 | parth  | pune       |
+|     3 |       9 | raj    | kolhapur   |
++-------+---------+--------+------------+
+3 rows in set (0.00 sec)
+mysql> alter table stud
+    -> add primary key(sr_no);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> describe stud;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sr_no   | int         | NO   | PRI | NULL    |       |
+| roll_no | int         | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+mysql> alter table stud
+    -> add unique key (name);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> describe stud;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sr_no   | int         | NO   | PRI | NULL    |       |
+| roll_no | int         | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  | UNI | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)

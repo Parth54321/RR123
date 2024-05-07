@@ -1,0 +1,11 @@
+ER Diagram 
+
+
+command line commands
+
+source c:/temp/mysqlsampledatabase.sql
+show databases;
+
+
+Create in Worbench
+export file in png format

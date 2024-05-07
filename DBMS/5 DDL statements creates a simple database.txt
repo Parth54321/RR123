@@ -1,0 +1,83 @@
+mysql> create database hospital;
+Query OK, 1 row affected (0.02 sec)
+mysql> use hospital;
+Database changed
+mysql> create table docter(name varchar(90),id int,address varchar(20),salary float,education
+varchar);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to
+your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table docter(name varchar(90),id int,address varchar(20),salary float,education
+varchar(20));
+Query OK, 0 rows affected (0.04 sec)
+mysql> insert into docter values('pranali_gadade',1,'pune',500000,'MBBS');
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into docter values('pranav_gadade',2,'shirwal',4000000,'MD');
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into docter values('pratiksha_gadade',5,'pune',40000,'MBBS');
+Query OK, 1 row affected (0.01 sec)
+mysql> insert into docter values('pratiksha_jadhav',3,'satara',300000,'MS');
+Query OK, 1 row affected (0.00 sec)
+mysql> select * from docter;
++------------------+------+---------+---------+-----------+
+| name | id | address | salary | education |
++------------------+------+---------+---------+-----------+
+| pranali_gadade | 1 | pune | 500000 | MBBS |
+| pranav_gadade | 2 | shirwal | 4000000 | MD |
+| pratiksha_gadade | 5 | pune | 40000 | MBBS |
+| pratiksha_jadhav | 3 | satara | 300000 | MS |
++------------------+------+---------+---------+-----------+
+4 rows in set (0.00 sec)
+mysql> alter table docter
+ -> add experiance_year int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0 Duplicates: 0 Warnings: 0
+mysql> desc docter;
++-----------------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| name | varchar(90) | YES | | NULL | |
+| id | int | YES | | NULL | |
+| address | varchar(20) | YES | | NULL | |
+| salary | float | YES | | NULL | |
+| education | varchar(20) | YES | | NULL | |
+| experiance_year | int | YES | | NULL | |
++-----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+mysql> alter table docter
+ -> drop address;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0 Duplicates: 0 Warnings: 0
+mysql> desc docter;
++-----------------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| name | varchar(90) | YES | | NULL | |
+| id | int | YES | | NULL | |
+| salary | float | YES | | NULL | |
+| education | varchar(20) | YES | | NULL | |
+| experiance_year | int | YES | | NULL | |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+mysql> alter table docter
+ -> add primary key(id);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0 Duplicates: 0 Warnings: 0
+mysql> desc docter;
++-----------------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| name | varchar(90) | YES | | NULL | |
+| id | int | NO | PRI | NULL | |
+| salary | float | YES | | NULL | |
+| education | varchar(20) | YES | | NULL | |
+| experiance_year | int | YES | | NULL | |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+mysql> drop docter;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to
+your MySQL server version for the right syntax to use near 'docter' at line 1
+mysql> drop table docter;
+Query OK, 0 rows affected (0.01 sec)
+mysql> desc docter;
+ERROR 1146 (42S02): Table 'hospital.docter' doesn't exist
+mysql>
